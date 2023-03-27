@@ -3,6 +3,45 @@
 #include <ctype.h>
 
 
+
+//////////////////
+/// CREATE NODES
+
+struct Node {
+    int int_value;
+    int index_value;
+    int final_position;
+    struct Node* next;
+};
+
+void addNode(struct Node** head, int int_value, int index_value, int final_position) {
+    // Create a new node
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->int_value = int_value;
+    newNode->index_value = index_value;
+    newNode->final_position = final_position;
+    newNode->next = NULL;
+
+    // If the list is empty, set the new node as the head
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    // Find the last node in the list
+    struct Node* lastNode = *head;
+    while (lastNode->next != NULL) {
+        lastNode = lastNode->next;
+    }
+
+    // Add the new node to the end of the list
+    lastNode->next = newNode;
+}
+
+//////////////////
+
+
+
 int has_duplicate(int arr[], int n) {
     for (int i = 0; i < n; i++) {
         for (int j = i+1; j < n; j++) {
@@ -61,11 +100,19 @@ int check_list_ints(char *list) {
     return 1;
 }
 
+
+
+
+
+
 int main(int argc, char **argv) {
 
     int numberofvalues = argc;
     int i = 1;
     int values_list[argc];
+
+    // read all values and send them to values_list and Node
+    struct Node* head = NULL;
 
     while (argv[i] != NULL)
     {
@@ -74,21 +121,44 @@ int main(int argc, char **argv) {
             return 1;
         }
         values_list[i-1] = ft_atoi(argv[i]);
+        addNode(&head, ft_atoi(argv[i]), i-1, 0);
         //printf("number %d = %d\n", i, ft_atoi(argv[i]));
         i++;
     }
+
+    // Check for duplicates
     if(has_duplicate(values_list,argc-1)){
         printf("Error, there are values with duplicates");
         return 0;
     }
+
+    // Sort the values by list
     sort_int_array(values_list,argc-1);
     i = 0;
+
+    // print the values
     while (i <= argc-2)
     {
         printf("%d, ", values_list[i]);
         i++;
     }
 
+    // print Node Values
+    printf("\nprinting Node Values \n");
+
+    struct Node* currentNode = head;
+    while (currentNode != NULL) {
+        // look for final_position before printing values
+        int k = 0;
+        while(currentNode->int_value != values_list[k]){
+            k++;
+        }
+        currentNode->final_position = k;
+        printf("int_value: %d, index_value: %d, final_position: %d\n", currentNode->int_value, currentNode->index_value, currentNode->final_position);
+        currentNode = currentNode->next;
+    }
+
+    // END
     printf("The List is clean :)");
     return 0;
 }
