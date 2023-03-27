@@ -158,6 +158,15 @@ int main(int argc, char **argv) {
         currentNode = currentNode->next;
     }
 
+    /// Write stack actions and possibilities (understand if its near top or bottom) (calculate steps to right position in B) (It would be nice to get a cost for several moves) (Maybe have preprocesser for the numbers that would define wich will be the best process to use)
+
+    /// Write a preprossecer that get the index and desired postions, (This will analyse the best way to approach this exercise)
+
+    /// Here you should understand how your algo will begin and calculate your costs:
+
+
+    /// Need to make push and swap to transform nodes to right positions
+
     // END
     printf("The List is clean :)");
     return 0;
