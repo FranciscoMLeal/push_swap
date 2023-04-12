@@ -157,6 +157,16 @@ int update_stack(struct Node* head) {
     return (i);
 }
 
+int  get_Last_Stack_IntValue(struct Node* head) {
+    int i;
+    while (head != NULL) {
+        i = head->int_value;
+        head = head->next;
+    }
+    return (i);
+}
+
+
 int search_stack(struct Node* head, int final)
 {
     int i = 0;
@@ -325,54 +335,148 @@ int main(int argc, char **argv) {
     //     {
     //         rotate_move(&stackA,"ra");
     //     }
-    //     pushToStack(&stackA,&stackB,"pa");
+    //     pushToStack(&stackA,&stackB,"pb");
     //     t++;
     // }
 
     // while (t != 0)
     // {
-    //     pushToStack(&stackB,&stackA,"pb");
+    //     pushToStack(&stackB,&stackA,"pa");
     //     t--;
     // }    
-    //basic_push_swap(stackA,stackB,argc);
+    // //basic_push_swap(stackA,stackB,argc);
 
     //////////////////////////////////////////////////
     ////////////         END         /////////////////
    
 
 
+
+
+
+
+
+
+
    ///////////////////////////////////////////////////
     //////////// NEW ALGO CRAZY  /////////////////
    
+    // while (stackA != NULL)
+    // {
+    //     if (stackA->next != NULL)
+    //         if (stackA->int_value > stackA->next->int_value){
+    //             swap_move(&stackA,"sa");
+    //         }
+    //     pushToStack(&stackA,&stackB,"pb");
+    //     //printStacks(stackA,stackB);
+
+
+    //     //if (stackB->next != NULL)
+    //     //{
+    //     //    struct Node* temp2 = stackB->next;
+    //     //    if (temp2->next != NULL)
+    //     //    {
+    //     //        if(stackB->int_value < temp2->next->int_value)
+    //     //        {
+    //     //            int counter = 0;
+    //     //            while (get_Last_Stack_IntValue(stackB) < stackB->int_value)
+    //     //            {
+    //     //                reverse_rotate_move(&stackB,"rrb");
+    //     //                swap_move(&stackB,"sb");
+    //     //                counter++;
+    //     //                //printf("\nget_Last_Stack_IntValue(stackB): %d ",get_Last_Stack_IntValue(stackB));
+    //     //                //printf("\nstackB->int_value: %d ",stackB->int_value);
+    //     //                //printStacks(stackA,stackB);
+    //     //            }
+    //     //            //printf("\nCOUNTED %d SWAP STEPS",counter);
+    //     //            while (counter != 0)
+    //     //            {
+    //     //                rotate_move(&stackB,"rb");
+    //     //                counter--;
+    //     //            }
+    //     //        }
+    //     //    }
+    //     //}
+
+    //     if (stackB->next != NULL)
+    //     {
+    //         if (stackB->int_value < stackB->next->int_value){
+    //             swap_move(&stackB,"sb");
+    //         }
+    //     }
+    //     //printStacks(stackA,stackB);
+    // }
+
+    // int final = argc - 2;
+    // while (stackB != NULL)    
+    // {
+    //     while (stackB->final_position != final)
+    //     {
+    //         int nb_of_values = update_stack(stackB);
+    //         int final_number = search_stack(stackB, final);
+    //         if (final_number < nb_of_values/2)
+    //         {
+    //             rotate_move(&stackB,"rb");
+    //         }
+    //         else 
+    //         {
+    //             reverse_rotate_move(&stackB,"rrb");
+    //         }
+    //     }
+    //     pushToStack(&stackB,&stackA,"pa");
+    //     final -= 1;
+    //     //printStacks(stackA,stackB);
+    // }
+
+
+
+    //////////////////////////////////////////////////
+    ////////////         END         /////////////////
+   
+
+
+
+
+    ///////////////////////////////////////////////////
+    //////////// THE THRD ALGO CRAZY  /////////////////
+
+
+
     while (stackA != NULL)
     {
         if (stackA->next != NULL)
-            if (stackA->int_value > stackA->next->int_value){
-                swap_move(&stackA,"sa");
+            while (stackA->final_position < update_stack(stackA)/2 && update_stack(stackA)/2 > 2){
+                rotate_move(&stackA,"ra");
+                
             }
-        pushToStack(&stackA,&stackB,"pa");
-
-
-        if (stackB->next != NULL)
-        {
-            struct Node* temp2 = stackB->next;
-            if (temp2->next != NULL)
-            {
-                if(stackB->int_value < temp2->next->int_value)
-                {
-                    rotate_move(&stackB,"rb");
-                }
-            }
-        }
-
-        if (stackB->next != NULL)
-        {
-            if (stackB->int_value < stackB->next->int_value){
-                swap_move(&stackB,"sb");
-            }
-        }
+        pushToStack(&stackA,&stackB,"pb");
         //printStacks(stackA,stackB);
+
     }
+
+    // while (stackB != NULL)
+    // {
+    //     if (stackB->next != NULL)
+    //         while (stackB->final_position > update_stack(stackB)/2 && update_stack(stackB)/2 > 3){
+    //             rotate_move(&stackB,"rb");
+                
+    //         }
+    //     pushToStack(&stackB,&stackA,"pa");
+    //     //printStacks(stackA,stackB);
+
+    // }
+
+    // while (stackA != NULL)
+    // {
+    //     if (stackA->next != NULL)
+    //         while (stackA->final_position < update_stack(stackA)/2 && update_stack(stackA)/2 > 2){
+    //             rotate_move(&stackA,"ra");
+                
+    //         }
+    //     pushToStack(&stackA,&stackB,"pb");
+    //     //printStacks(stackA,stackB);
+
+    // }
 
     int final = argc - 2;
     while (stackB != NULL)    
@@ -390,10 +494,15 @@ int main(int argc, char **argv) {
                 reverse_rotate_move(&stackB,"rrb");
             }
         }
-        pushToStack(&stackB,&stackA,"pb");
+        pushToStack(&stackB,&stackA,"pa");
         final -= 1;
         //printStacks(stackA,stackB);
     }
+
+
+
+
+
 
     //while (stackB != NULL)
     //{
@@ -435,6 +544,7 @@ int main(int argc, char **argv) {
 
     // END
     // printf("The List is clean :)");
+    //
     return 0;
 }
 
